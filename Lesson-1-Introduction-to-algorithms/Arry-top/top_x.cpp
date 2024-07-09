@@ -1,11 +1,13 @@
 #include <algorithm>
 #include <cassert>
+#include <iostream>
 #include <stdexcept>
 #include <string>
 #include <vector>
 
 using namespace std;
 
+// Task #1
 int FindMaxUnderBoundary(const vector<int>& list, int top_boundary) {
     int current_max = INT_MIN;
 
@@ -20,6 +22,7 @@ int FindMaxUnderBoundary(const vector<int>& list, int top_boundary) {
     return current_max;
 }
 
+// Task #2
 int FindMinUnderBoundary(const vector<int>& list, int bottom_boundary) {
     int current_min = INT_MAX;
 
@@ -32,25 +35,6 @@ int FindMinUnderBoundary(const vector<int>& list, int bottom_boundary) {
         throw "bottom boundary more than the values of the vector's elements"s; 
     }
     return current_min;
-}
-
-vector<int> FindTopElements(vector<int>& list, int number_of_elements) {
-    if (number_of_elements > list.size()) {
-        throw "number of element more than list size"s;
-    }
-    vector<int> top_elements(number_of_elements);
-    int previous_max = INT_MAX;
-    int index = 0;
-    while(number_of_elements != 0) {
-        int current_max = FindMaxUnderBoundary(list, previous_max);
-        previous_max = current_max;
-        top_elements[index++] = current_max;
-        auto it = find(list.begin(), list.end(), current_max);
-        list.erase(it);
-        --number_of_elements;
-    }
-
-    return top_elements;
 }
 
 vector<int> FindBottomElements(vector<int>& list, int number_of_elements) {
@@ -72,6 +56,28 @@ vector<int> FindBottomElements(vector<int>& list, int number_of_elements) {
     return bottom_elements;
 }
 
+// Task #3
+vector<int> FindTopElements(vector<int>& list, int number_of_elements) {
+    if (number_of_elements > list.size()) {
+        throw "number of element more than list size"s;
+    }
+    vector<int> top_elements(number_of_elements);
+    int previous_max = INT_MAX;
+    int index = 0;
+    while(number_of_elements != 0) {
+        int current_max = FindMaxUnderBoundary(list, previous_max);
+        previous_max = current_max;
+        top_elements[index++] = current_max;
+        auto it = find(list.begin(), list.end(), current_max);
+        list.erase(it);
+        --number_of_elements;
+    }
+
+    return top_elements;
+}
+
+
+
 //Tests
 void TestFindMaxUnderBoundary() {
     try {
@@ -81,12 +87,16 @@ void TestFindMaxUnderBoundary() {
     catch (const string& error_message) {
         assert(!error_message.empty());
     }
+
+    cout << __FUNCTION__ << " DONE"s << endl;
 }
 
 void TestFindBottomElements() {
     vector<int> list{40, 50, 60, 10, 20, 30, 70, 80};
     vector<int> answer{10, 20, 30};
     assert(FindBottomElements(list, 3) == answer);
+
+    cout << __FUNCTION__ << " DONE"s << endl;
 }
 
 
@@ -94,6 +104,8 @@ void TestFindTopElements() {
     vector<int> list{100, 100, 100, 55, 8};
     vector<int> answer{100, 100, 100};
     assert(FindTopElements(list, 3) == answer);
+
+    cout << __FUNCTION__ << " DONE"s << endl;
 }
 
 
@@ -101,6 +113,7 @@ void Test() {
     TestFindMaxUnderBoundary();
     TestFindBottomElements();
     TestFindTopElements();
+    cout << "ALL TESTS DONE"s << endl;
 }
 
 int main() {

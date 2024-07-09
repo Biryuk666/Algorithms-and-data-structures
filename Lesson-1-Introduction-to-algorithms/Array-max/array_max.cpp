@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <cassert>
+#include <iostream>
 #include <numeric>
 #include <vector>
 
@@ -42,10 +43,10 @@ int FindMostProfitableClient(vector<vector<int>> income) {
     int more_profitable_client_index = 0;
     int more_profitable_client_income = 0;
     for (size_t i = 0; i < income.size(); ++i) {
-        int payments_ammount = accumulate(income[i].begin(), income[i].end(), 0);
-        if (more_profitable_client_income < payments_ammount) {
+        int payments_amount = accumulate(income[i].begin(), income[i].end(), 0);
+        if (more_profitable_client_income < payments_amount) {
             more_profitable_client_index = i;
-            more_profitable_client_income = payments_ammount;
+            more_profitable_client_income = payments_amount;
         }
     }
     return more_profitable_client_index;
@@ -62,7 +63,7 @@ void TestFindSmallestTransaction() {
     transactions.push_back(-1);
     assert(FindSmallestTransaction(transactions) == -1);
 
-
+    cout << __FUNCTION__ << " DONE"s << endl;
 }
 void TestFindBestStudentMistakes() {
     vector<int> result{9, 4, 1, 8, 7, 13, 6, 5};
@@ -72,12 +73,15 @@ void TestFindBestStudentMistakes() {
     result.push_back(0);
     assert(FindBestStudentMistakes(result) == 0);
 
+    cout << __FUNCTION__ << " DONE"s << endl;
 }
 
 void TestFindAverageTime() {
     vector<int> statistic{9, 4,1, 8, 7, 9, 4, 1, 8, 7, 8, 7, 18, 3, 13, 6, 5};
     float answer = (float)accumulate(statistic.begin(), statistic.end(), 0) / statistic.size();
     assert(FindAverageTime(statistic) == answer);
+
+    cout << __FUNCTION__ << " DONE"s << endl;
 }
 
 void TestFindMostProfitableClient() {
@@ -91,6 +95,8 @@ void TestFindMostProfitableClient() {
     assert(FindMostProfitableClient(income) == 2);
     income.push_back({100,100,100,100,100,1000});
     assert(FindMostProfitableClient(income) == 4);
+
+    cout << __FUNCTION__ << " DONE"s << endl;
 }
 
 void Test() {
@@ -98,7 +104,7 @@ void Test() {
     TestFindBestStudentMistakes();
     TestFindAverageTime();
     TestFindMostProfitableClient();
-
+    cout << "ALL TESTS DONE"s << endl;
 }
 
 int main() {

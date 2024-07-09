@@ -1,11 +1,13 @@
 #include <algorithm>
 #include <cassert>
 #include <iostream>
+#include <locale>
 #include <string>
 #include <vector>
 
 using namespace std;
 
+// Task #1
 string LettersLearnedToday(string word) {
     string result;
     for (const auto& ch : word) {
@@ -16,7 +18,7 @@ string LettersLearnedToday(string word) {
     return result;
 }
 
-
+// Task #2
 int AvoidJailDueToTaxFraud(vector<vector<int>> report) {
     vector<int> result;
     for (size_t i = 0; i < report.size(); ++i) {
@@ -38,6 +40,8 @@ void TestLettersLearnedToday() {
     word.clear();
     word = string("AAAAAAAA");
     assert(LettersLearnedToday(word) == "A"s);
+
+    cout << __FUNCTION__ << " DONE"s << endl;
 }
 
 void TestAvoidJailDueToTaxFraud() {
@@ -53,12 +57,16 @@ void TestAvoidJailDueToTaxFraud() {
         {4, 5, 6}
     };
     assert(AvoidJailDueToTaxFraud(report) == -1);
+
+    cout << __FUNCTION__ << " DONE"s << endl;
 }
 
 void Test() {
     TestLettersLearnedToday();
     TestAvoidJailDueToTaxFraud();
+    cout << "ALL TESTS DONE"s << endl;
 }
 int main() {
+    setlocale(LC_ALL, "ru_RU.UTF-8");
     Test();
 }
