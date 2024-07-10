@@ -66,7 +66,6 @@ void TestGroupAndPrint() {
         79000000000,
         79000000000
     };
-    GroupeAndPrint(phone_numbers1);
     vector<double> phone_numbers2{
         79000000000,
         79000000000,
@@ -79,39 +78,38 @@ void TestGroupAndPrint() {
         79000000003,
         79000000004
     };
+
+    ostringstream output;
+    streambuf* old_cout_buf = cout.rdbuf();
+    cout.rdbuf(output.rdbuf());
+
+    GroupeAndPrint(phone_numbers1);
+    assert(output.str() == "+79000000000 - applications have been received: 3\n");
+    output.str("");
     GroupeAndPrint(phone_numbers2);
-
-    /*ostringstream output1;
-    output1 << GroupeAndPrint(phone_numbers1);
-    assert(output.str() == "+79000000000 - applications have been received: 3");
-    ostringstream output2;
-    output2 << GroupeAndPrint(phone_numbers2);
-    assert(output.str() == "+79000000000 - applications have been received: 2\n
-                            +79000000001 - applications have been received: 1\n
-                            +79000000002 - applications have been received: 2\n
-                            +79000000003 - applications have been received: 4\n
-                            +79000000004 - applications have been received: 1\n"
-    );*/
-
+    assert(output.str() == "+79000000000 - applications have been received: 2\n+79000000001 - applications have been received: 1\n+79000000002 - applications have been received: 2\n+79000000003 - applications have been received: 4\n+79000000004 - applications have been received: 1\n");
+    
+    cout.rdbuf(old_cout_buf);
+    
     cout << __FUNCTION__ << " DONE"s << endl;
 }
 
 void TestCryptoCurrencyAnalysis() {
-    
     string file_contents1("BTC:600 BTC:600 BTC:600 BTC:600 BTC:600 BTC:600 BTC:600"s);
-    CryptoCurrencyAnalysis(file_contents1);
+    
     string file_contents2("BTC:42 BTC:600 BTC:900 DOGE:123456 DOGE:69420 ETH:220 ETH:666 XMR:14 XMR:88"s);
+
+    ostringstream output;
+    streambuf* old_cout_buf = cout.rdbuf();
+    cout.rdbuf(output.rdbuf());
+
+    CryptoCurrencyAnalysis(file_contents1);
+    assert(output.str() == "(\"BTC\", 600)\n");
+    output.str("");
     CryptoCurrencyAnalysis(file_contents2);
-    /*ostringstream output1;
-    output1 << CryptoCurrencyAnalysis(file_contents1);
-    assert(output1.str() == "(\"BTC\", 600)\n");
-    ostringstream output2;
-    output1 << CryptoCurrencyAnalysis(file_contents2);
-    assert(output2.str() == "(\"BTC\", 514.0)\n
-                             (\"DOGE\", 96438)\n
-                             (\"ETH\", 443)\n
-                             (\"XMR\", 51)\n
-    )";*/
+    assert(output.str() == "(\"BTC\", 514)\n(\"DOGE\", 96438)\n(\"ETH\", 443)\n(\"XMR\", 51)\n");
+
+    cout.rdbuf(old_cout_buf);    
 
     cout << __FUNCTION__ << " DONE"s << endl; 
 }
