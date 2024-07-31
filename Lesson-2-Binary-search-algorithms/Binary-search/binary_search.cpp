@@ -82,7 +82,7 @@ vector<DatingUser> FindUsersByIQ(const vector<DatingUser>& users_sorted_by_iq, i
 }
 
 // Task #3
-size_t FindPhoneNumber(const vector<size_t>& sorted_phone_numbers, size_t query) {
+double FindPhoneNumber(const vector<double>& sorted_phone_numbers, double query) {
     int left = 0;
     int right = sorted_phone_numbers.size() - 1;
     if (sorted_phone_numbers[0] < sorted_phone_numbers[1]) {
@@ -96,7 +96,7 @@ size_t FindPhoneNumber(const vector<size_t>& sorted_phone_numbers, size_t query)
                 return sorted_phone_numbers[middle];
             }
         }
-        return 0;
+        return -1;
     }
     while (left <= right) {
         int middle = (left + right) / 2;
@@ -108,7 +108,7 @@ size_t FindPhoneNumber(const vector<size_t>& sorted_phone_numbers, size_t query)
             return sorted_phone_numbers[middle];
         }
     }
-    return 0;
+    return -1;
 }
 
 // Tests
@@ -176,16 +176,16 @@ void TestFindUsersByIQ() {
 }
 
 void TestFindPhoneNumber() {
-    vector<size_t> list1{79000000000, 79000000001, 79000000002, 79000000004, 79000000005, 79000000006};
-    vector<size_t> list2{79000000006, 79000000005, 79000000004, 79000000002, 79000000001, 79000000000};
+    vector<double> list1{79000000000, 79000000001, 79000000002, 79000000004, 79000000005, 79000000006};
+    vector<double> list2{79000000006, 79000000005, 79000000004, 79000000002, 79000000001, 79000000000};
     assert(FindPhoneNumber(list1, 79000000002) == 79000000002);
     assert(FindPhoneNumber(list2, 79000000002) == 79000000002);
-    assert(FindPhoneNumber(list1, 78999999999) == 0);
-    assert(FindPhoneNumber(list1, 79000000003) == 0);
-    assert(FindPhoneNumber(list1, 79000000007) == 0);
-    assert(FindPhoneNumber(list2, 78999999999) == 0);
-    assert(FindPhoneNumber(list2, 79000000003) == 0);
-    assert(FindPhoneNumber(list2, 79000000007) == 0);
+    assert(FindPhoneNumber(list1, 78999999999) == -1);
+    assert(FindPhoneNumber(list1, 79000000003) == -1);
+    assert(FindPhoneNumber(list1, 79000000007) == -1);
+    assert(FindPhoneNumber(list2, 78999999999) == -1);
+    assert(FindPhoneNumber(list2, 79000000003) == -1);
+    assert(FindPhoneNumber(list2, 79000000007) == -1);
 
     cout << __FUNCTION__ << " DONE"s << endl;
 }
