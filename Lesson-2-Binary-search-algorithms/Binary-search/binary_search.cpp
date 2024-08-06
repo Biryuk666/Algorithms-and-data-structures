@@ -53,7 +53,7 @@ vector<DatingUser> FindUsersByIQ(const vector<DatingUser>& users_sorted_by_iq, i
     if (users_sorted_by_iq.empty()) throw invalid_argument("List is empty"s);
     if (professor_iq < lower_iq_bound || lower_iq_bound > users_sorted_by_iq.back().iq || professor_iq < users_sorted_by_iq[0].iq) throw invalid_argument("Invalid arguments"s);
 
-    int lower_bound_index = INT_MIN;
+    int lower_bound_index = -1;
     bool is_finded = false;
     while (!is_finded || lower_iq_bound <= professor_iq) {
         is_finded = FindBound(users_sorted_by_iq, lower_iq_bound, lower_bound_index);
@@ -65,7 +65,7 @@ vector<DatingUser> FindUsersByIQ(const vector<DatingUser>& users_sorted_by_iq, i
         lower_bound_index = i;
     }
 
-    int upper_bound_index = INT_MIN;
+    int upper_bound_index = -1;
     is_finded = false;
     while (!is_finded || lower_iq_bound >= professor_iq) {
         is_finded = FindBound(users_sorted_by_iq, professor_iq, upper_bound_index);
@@ -77,7 +77,7 @@ vector<DatingUser> FindUsersByIQ(const vector<DatingUser>& users_sorted_by_iq, i
         upper_bound_index = i;
     }
     
-    if (lower_bound_index == INT_MIN || upper_bound_index == INT_MIN) return {};
+    if (lower_bound_index == -1 || upper_bound_index == -1) return {};
     return {users_sorted_by_iq.begin() + static_cast<long long>(lower_bound_index), users_sorted_by_iq.begin() + static_cast<long long>(upper_bound_index) + 1};
 }
 
@@ -153,23 +153,31 @@ void TestFindUsersByIQ() {
     {
         try {
         vector<DatingUser> result = FindUsersByIQ(list, 100, 105);
-        } catch (...) {}
+        } catch (const invalid_argument& e) {
+            assert(e.what() == "Invalid arguments"s);
+        }
     }
     {
         try {
         vector<DatingUser> result = FindUsersByIQ(list, 40, 45);
-        } catch (...) {}
+        } catch (const invalid_argument& e) {
+            assert(e.what() == "Invalid arguments"s);
+        }
     }
     {
         try {
         vector<DatingUser> result = FindUsersByIQ(list, 55, 50);
-        } catch (...) {}
+        } catch (const invalid_argument& e) {
+            assert(e.what() == "Invalid arguments"s);
+        }
     }
     {
         list.clear();
         try {
         vector<DatingUser> result = FindUsersByIQ(list, 50, 90);
-        } catch (...) {}
+        } catch (const invalid_argument& e) {
+            assert(e.what() == "List is empty"s);
+        }
     }
 
     cout << __FUNCTION__ << " DONE"s << endl;
