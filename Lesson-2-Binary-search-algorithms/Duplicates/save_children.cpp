@@ -1,4 +1,5 @@
 #include <cassert>
+#include<iostream>
 #include <stdexcept>
 #include <string>
 #include <vector>
@@ -27,6 +28,8 @@ void TestPermutateWords() {
     PermutateWords(words);
     vector<string> answer{"adal", "zua", "azu", "uaz", "lada"};
     assert(words == answer);
+
+    cout << __FUNCTION__ << " DONE"s << endl;
 }
 
 int main () {

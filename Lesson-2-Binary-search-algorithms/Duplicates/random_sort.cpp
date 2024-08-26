@@ -36,6 +36,8 @@ void TestRandomSort(){
     RandomSort(array);
     vector<int> answer{0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
     assert(array == answer);
+
+    cout << __FUNCTION__ << " DONE"s << endl;
 }
 
 int main () {
