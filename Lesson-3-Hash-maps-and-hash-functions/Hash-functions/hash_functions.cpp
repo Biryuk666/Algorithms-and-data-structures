@@ -5,7 +5,7 @@
 using namespace std;
 
 // Task #1
-int HashString(string value) {
+int HashString(const string& value) {
     int result = 0;
     for (char ch : value) {
         result += static_cast<int>(ch);
@@ -28,13 +28,13 @@ int HashInt(int value) {
 // Task #3
 class Student {
 public:
-    Student(int age_, string name_) : age(age_), name(name_) {}
+    Student(int age_, const string& name_) : age(age_), name(name_) {}
 
     int age;
     string name;
 };
 
-int HashStudent(Student value) {
+int HashStudent(const Student& value) {
     return HashString(value.name) + HashInt(value.age);
 }
 
