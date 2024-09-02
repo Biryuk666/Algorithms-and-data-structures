@@ -19,8 +19,10 @@ int HashInt(int value) {
     int result = 1;
     int i = 1;
     while (value / i != 0) {
+        if (value / i % 10 != 0) {
         result *= value / i % 10;
         i *= 10;
+        }        
     }
     return result;
 }
